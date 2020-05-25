@@ -9,8 +9,8 @@ services:
     volumes:
     - ./python/src/:/work
     ports:
-      - 8000:8000
-      - 8001:22
+      - "8000:8000"
+      - "8001:22"
     depends_on:
       - db
   db:
