@@ -30,6 +30,7 @@ services:
       #- SUDO_PASSWORD=password #optional
     volumes:
       - ./codeserver/config:/config
+      - ./:/home/coder/project
     ports:
       - 8001:8443
     restart: unless-stopped
