@@ -29,7 +29,7 @@ services:
       #- PASSWORD=password #optional
       #- SUDO_PASSWORD=password #optional
     volumes:
-      - /path/to/appdata/config:/config
+      - ./codeserver/config:/config
     ports:
       - 8001:8443
     restart: unless-stopped
