@@ -10,6 +10,7 @@ services:
     - ./python/src/:/work
     ports:
       - 8000:8000
+      - 8001:22
     depends_on:
       - db
   db:
@@ -19,18 +20,18 @@ services:
         POSTGRES_USER: "${POSTGRES_USER}"
         POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
 
-  vscode:
-    container_name: code-server
-    image: linuxserver/code-server
-    environment:
-      - PUID=1001
-      - PGID=1001
-      - TZ=America/Detroit
-      #- PASSWORD=password #optional
-      #- SUDO_PASSWORD=password #optional
-    volumes:
-      - ./codeserver/config:/config
-      - ./:/home/coder/project
-    ports:
-      - 8001:8443
-    restart: unless-stopped
+  # vscode:
+  #   container_name: code-server
+  #   image: linuxserver/code-server
+  #   environment:
+  #     - PUID=1001
+  #     - PGID=1001
+  #     - TZ=America/Detroit
+  #     #- PASSWORD=password #optional
+  #     #- SUDO_PASSWORD=password #optional
+  #   volumes:
+  #     - ./codeserver/config:/config
+  #     - ./:/home/coder/project
+  #   ports:
+  #     - 8001:8443
+  #   restart: unless-stopped
