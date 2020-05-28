@@ -1,10 +1,10 @@
-FROM python:3.8.3 as base
+FROM python:3.8.3
 
 ARG USERNAME=djangossh
 ARG USERPASS=shhimworkinghere
 
 # TODO: move this to dev build before production
-RUN apt update && apt -y install openssh-server whois
+RUN apt-get update && apt-get -y install openssh-server whois
 RUN useradd -ms /bin/bash $USERNAME
 RUN usermod --password $(echo "$USERPASS" | mkpasswd -s) $USERNAME
 RUN apt purge -y whois && apt -y autoremove && apt -y autoclean && apt -y clean
@@ -17,7 +17,7 @@ RUN mkdir /home/$USERNAME/.ssh && touch /home/$USERNAME/.ssh/authorized_keys
 USER root
 VOLUME /home/$USERNAME/.ssh
 VOLUME /etc/ssh
-CMD ["/entrypoint.sh"]
+
 # End of SSH
 
 RUN mkdir /work/
@@ -29,6 +29,5 @@ RUN pip install -r requirements.txt
 #COPY ./python/src/ /work/
 ENV PYTHONUNBUFFERED 1
 
-FROM base as prod
-
-CMD python manage.py runserver 0.0.0.0:8000
+#CMD python manage.py runserver 0.0.0.0:8000
+CMD ["/entrypoint.sh"]

@@ -11,3 +11,5 @@ service ssh start
 
 # link auth.log to container log
 tail -f /var/log/auth.log
+
+python manage.py runserver 0.0.0.0:8000
