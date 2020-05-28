@@ -4,10 +4,10 @@ ARG USERNAME=djangossh
 ARG USERPASS=shhimworkinghere
 
 # TODO: move this to dev build before production
-RUN apt-get update && apt-get -y install openssh-server whois
+RUN apt-get update && apt-get -y install ssh whois
 RUN useradd -ms /bin/bash $USERNAME
 RUN usermod --password $(echo "$USERPASS" | mkpasswd -s) $USERNAME
-RUN apt purge -y whois && apt -y autoremove && apt -y autoclean && apt -y clean
+
 USER $USERNAME
 WORKDIR /home/$USERNAME
 COPY entrypoint.sh entrypoint.sh
