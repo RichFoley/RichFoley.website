@@ -1,5 +1,8 @@
 FROM python:3.8.3
 
+COPY ./requirements.txt /work/requirements.txt
+RUN pip install -r requirements.txt
+
 ARG USERNAME=djangossh
 ARG USERPASS=shhimworkinghere
 
@@ -13,8 +16,8 @@ WORKDIR /home/$USERNAME
 
 RUN mkdir /home/$USERNAME/.ssh && touch /home/$USERNAME/.ssh/authorized_keys
 USER root
-VOLUME /home/$USERNAME/.ssh
-VOLUME /etc/ssh
+
+COPY ./src/djangosrc/secrets/djangossh.key.pub /home/$USERNAME/.ssh/authorized_keys
 
 # End of SSH
 
@@ -23,13 +26,7 @@ WORKDIR /work/
 
 COPY ./entrypoint.sh /script/entrypoint.sh
 
-COPY ./requirements.txt /work/requirements.txt
-RUN pip install -r requirements.txt
-
-#COPY ./python/src/ /work/
 ENV PYTHONUNBUFFERED 1
-
-#CMD python /work/manage.py runserver 0.0.0.0:8000
 
 RUN chmod +x /script/entrypoint.sh
 
