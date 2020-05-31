@@ -10,9 +10,7 @@ RUN usermod --password $(echo "$USERPASS" | mkpasswd -s) $USERNAME
 
 USER $USERNAME
 WORKDIR /home/$USERNAME
-COPY entrypoint.sh entrypoint.sh
-RUN chmod +x /entrypoint.sh
-USER $USERNAME
+
 RUN mkdir /home/$USERNAME/.ssh && touch /home/$USERNAME/.ssh/authorized_keys
 USER root
 VOLUME /home/$USERNAME/.ssh
@@ -23,11 +21,16 @@ VOLUME /etc/ssh
 RUN mkdir /work/
 WORKDIR /work/
 
+COPY ./entrypoint.sh /script/entrypoint.sh
+
 COPY ./requirements.txt /work/requirements.txt
 RUN pip install -r requirements.txt
 
 #COPY ./python/src/ /work/
 ENV PYTHONUNBUFFERED 1
 
-#CMD python manage.py runserver 0.0.0.0:8000
-CMD ["/entrypoint.sh"]
+#CMD python /work/manage.py runserver 0.0.0.0:8000
+
+RUN chmod +x /script/entrypoint.sh
+
+ENTRYPOINT ["/script/entrypoint.sh"]
