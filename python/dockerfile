@@ -1,7 +1,5 @@
 FROM python:3.8.3
 
-COPY ./requirements.txt /work/requirements.txt
-RUN pip install -r requirements.txt
 
 ARG USERNAME=djangossh
 ARG USERPASS=shhimworkinghere
@@ -23,6 +21,9 @@ COPY ./src/djangosrc/secrets/djangossh.key.pub /home/$USERNAME/.ssh/authorized_k
 
 RUN mkdir /work/
 WORKDIR /work/
+
+COPY ./requirements.txt /work/requirements.txt
+RUN pip install -r requirements.txt
 
 COPY ./entrypoint.sh /script/entrypoint.sh
 
