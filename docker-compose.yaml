@@ -11,6 +11,8 @@ services:
     ports:
       - "8000:8000"
       - "8001:22"
+    env_file:
+      - .env
     depends_on:
       - db
   db:
