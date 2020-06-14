@@ -1,23 +1,9 @@
 from django.shortcuts import render
-
-fake_posts = [
-    {
-        'author': 'Rich',
-        'title': 'First Post',
-        'content': 'This is harder than I thought.',
-        'date_posted': '06/12/2020',
-    },
-    {
-        'author': 'Not Rich',
-        'title': 'Second Post',
-        'content': 'This is much harder than I thought.',
-        'date_posted': '06/12/2025',
-    },
-]
+from .models import Post
 
 def home(request):
     context = {
-        'posts': fake_posts
+        'posts': Post.objects.all()
     }
     return render(request, 'blog/home.html', context)
 
