@@ -1,3 +1,5 @@
 secrets/
 .env
 codeserver/
+db/
+.vscode/

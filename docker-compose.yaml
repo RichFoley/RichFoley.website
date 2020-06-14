@@ -16,11 +16,11 @@ services:
     depends_on:
       - db
   db:
-      image: postgres
-      environment:
-        POSTGRES_DB: "${POSTGRES_DB}"
-        POSTGRES_USER: "${POSTGRES_USER}"
-        POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+    image: postgres
+    volumes: 
+    - ./db/:/var/lib/postgresql/data
+    env_file:
+      - .env
 
   # vscode:
   #   container_name: code-server
